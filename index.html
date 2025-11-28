@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <title>Ajudar é Simples 💚</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+  <link rel="icon" type="image/jpg" href="logo.png">
+
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #e7fffd;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(90deg, #a6e3e9, #cbf1f5, #fef9ef);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      color: #3a3a3a;
+      font-size: 2rem;
+    }
+
+    main {
+      margin-top: 150px;
+      width: 100%;
+      max-width: 550px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 45px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    select, input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #d4f1f4;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    select:focus, input:focus {
+      border-color: #6cd4ff;
+    }
+
+    button {
+      background: #6cd4ff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #5bbce1;
+    }
+
+    .resultado {
+      margin-top: 25px;
+      background: #f0fbfc;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 1.1rem;
+      color: #333;
+      animation: aparecer 0.5s ease-in-out;
+    }
+
+    .links {
+      margin-top: 20px;
+      text-align: left;
+      padding: 15px;
+      background: #f9fcfd;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .links h3 {
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .links a {
+      display: block;
+      color: #0077b6;
+      text-decoration: none;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    .links a:hover {
+      color: #00b4d8;
+      text-decoration: underline;
+    }
+
+    .instrucoes {
+      background: #eefcfc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.4;
+    }
+
+    @keyframes aparecer {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    footer {
+      width: 100%;
+      margin-top: 150px;
+      background: linear-gradient(90deg, #a6e3e9, #cbf1f5, #fef9ef);
+      padding: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><img src="logo.png" height="200" width="405"></h1>
+  </header>
+
+  <main>
+    <h2>Simule sua doação</h2>
+    <p>Escolha uma causa e um valor simbólico para ver o impacto que sua doação pode gerar.</p>
+
+    <select id="causa">
+      <option value="">Selecione uma causa</option>
+      <option value="fome">🍞 Combate à Fome</option>
+      <option value="animais">🐾 Proteção Animal</option>
+      <option value="educacao">📚 Educação Infantil</option>
+      <option value="meioambiente">🌱 Meio Ambiente</option>
+    </select>
+
+    <input type="number" id="valor" placeholder="Digite o valor da doação (R$)" min="1">
+    
+    <button onclick="simularDoacao()">Simular</button>
+
+    <div id="resultado" class="resultado" style="display:none;"></div>
+    <div id="links" class="links" style="display:none;"></div>
+  </main>
+
+  <footer>
+    <div align="right"><a href="#"><img src="ancora.webp" height="70" width="70"></a></div>
+    <p>Beatriz Pontes Sorana 2025 &copy Todos os direitos reservados<br>Trabalho Acadêmico sem fins lucrativos
+    </p>
+  </footer>
+
+  <script>
+    function simularDoacao() {
+      const causa = document.getElementById("causa").value;
+      const valor = Number(document.getElementById("valor").value);
+      const resultado = document.getElementById("resultado");
+      const linksDiv = document.getElementById("links");
+
+      if (!causa || !valor) {
+        resultado.style.display = "block";
+        resultado.innerHTML = "⚠️ Por favor, escolha uma causa e digite um valor válido.";
+        linksDiv.style.display = "none";
+        return;
+      }
+
+      let mensagem = "";
+      let linksHTML = "<h3>Instituições relacionadas:</h3>";
+
+      switch (causa) {
+        case "fome":
+          mensagem = `Com R$${valor.toFixed(2)}, você ajudaria a fornecer ${Math.floor(valor / 10)} refeições para famílias em vulnerabilidade. 🥗`;
+          linksHTML += `
+            <a href="https://www.mesabrasil.sesc.com.br/" target="_blank">🍽️ Mesa Brasil (SESC)</a>
+            <div class="instrucoes">
+              💡 Como doar: acesse o site e procure pela aba “Como Ajudar” ou “Doe Agora”.  
+              Você pode contribuir com alimentos, dinheiro ou voluntariado.
+            </div>
+
+            <a href="https://www.cufabrasil.org/" target="_blank">🍛 CUFA Brasil</a>
+            <div class="instrucoes">
+              💡 Como doar: clique em “Doar” no site oficial.  
+              As doações podem ser feitas por PIX ou transferência bancária.
+            </div>
+          `;
+          break;
+
+        case "animais":
+          mensagem = `Com R$${valor.toFixed(2)}, você ajudaria a alimentar ${Math.floor(valor / 15)} cães ou gatos por uma semana. 🐕🐈`;
+          linksHTML += `
+            <a href="https://amparaanimal.org.br/" target="_blank">🐾 Ampara Animal</a>
+            <div class="instrucoes">
+              💡 Como doar: acesse “Doe Agora” no site.  
+              É possível contribuir com valores fixos mensais via cartão ou boleto.
+            </div>
+
+            <a href="https://www.suipa.org.br/" target="_blank">🐶 SUIPA</a>
+            <div class="instrucoes">
+              💡 Como doar: clique em “Associe-se” para ajudar com uma quantia mensal ou faça doações pontuais.
+            </div>
+          `;
+          break;
+
+        case "educacao":
+          mensagem = `Com R$${valor.toFixed(2)}, seria possível comprar ${Math.floor(valor / 5)} materiais escolares para crianças. 📒✏️`;
+          linksHTML += `
+            <a href="https://www.institutoayrtonsenna.org.br/" target="_blank">📚 Instituto Ayrton Senna</a>
+            <div class="instrucoes">
+              💡 Como doar: entre no site e clique em “Como Contribuir”.  
+              É possível doar via PIX ou se tornar parceiro.
+            </div>
+
+            <a href="https://www.unicef.org/brazil/" target="_blank">🌎 UNICEF Brasil</a>
+            <div class="instrucoes">
+              💡 Como doar: clique em “Doar Agora” no topo do site.  
+              Você pode fazer doações únicas ou mensais.
+            </div>
+          `;
+          break;
+
+        case "meioambiente":
+          mensagem = `Com R$${valor.toFixed(2)}, você contribuiria para o plantio de ${Math.floor(valor / 8)} árvores. 🌳`;
+          linksHTML += `
+            <a href="https://www.sosma.org.br/" target="_blank">🌱 SOS Mata Atlântica</a>
+            <div class="instrucoes">
+              💡 Como doar: acesse “Doe Agora” e escolha o valor que deseja contribuir.  
+              As doações ajudam a plantar árvores e preservar florestas.
+            </div>
+
+            <a href="https://www.greenpeace.org/brasil/" target="_blank">🌍 Greenpeace Brasil</a>
+            <div class="instrucoes">
+              💡 Como doar: clique em “Doar” e preencha seus dados.  
+              É possível doar via cartão ou boleto.
+            </div>
+          `;
+          break;
+      }
+
+      resultado.style.display = "block";
+      resultado.innerHTML = mensagem;
+      linksDiv.style.display = "block";
+      linksDiv.innerHTML = linksHTML;
+    }
+  </script>
+</body>
+</html>
